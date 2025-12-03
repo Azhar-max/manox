@@ -10,7 +10,8 @@
     "preview:prod": "vite preview --port 5173",
     "analyze": "vite build --mode production && npx vite-bundle-visualizer",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "netlify": "vite build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.1",

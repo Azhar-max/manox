@@ -1,6 +1,6 @@
 # MANOX Deployment Tracker
 
-This document tracks the deployment progress of the MANOX e-commerce platform to Vercel (frontend) and Render (backend).
+This document tracks the deployment progress of the MANOX e-commerce platform to Netlify (frontend) and Render (backend).
 
 ## Prerequisites
 ### GitHub Account
@@ -11,8 +11,8 @@ This document tracks the deployment progress of the MANOX e-commerce platform to
 - [ ] Create MongoDB Atlas account
 - [ ] Verify email address
 
-### Vercel Account
-- [x] Create Vercel account
+### Netlify Account
+- [x] Create Netlify account
 - [ ] Verify email address
 
 ### Render Account
@@ -90,49 +90,47 @@ This document tracks the deployment progress of the MANOX e-commerce platform to
 - [ ] Add environment variables:
   - `MONGO_URI` = [Your MongoDB connection string]
   - `JWT_SECRET` = [Generate strong secret - at least 32 characters]
-  - `FRONTEND_URL` = [Placeholder - will update after Vercel deployment]
+  - `FRONTEND_URL` = [Placeholder - will update after Netlify deployment]
   - `PORT` = 10000
 - [ ] Click "Create Web Service"
 - [ ] Wait for deployment to complete
 - [ ] Note Render URL
 
-## Vercel Frontend Deployment
+## Netlify Frontend Deployment
 ### Create Project
-- [ ] Go to https://vercel.com/dashboard
-- [ ] Click "New Project"
+- [ ] Go to https://app.netlify.com/
+- [ ] Click "Add new site" → "Import an existing project"
 - [ ] Import GitHub repository
 - [ ] Configure project:
-  - Framework Preset: Vite
-  - Root Directory: frontend
-  - Build Command: `npm run build`
-  - Output Directory: dist
-  - Install Command: `npm install`
+  - Build command: `npm run build`
+  - Publish directory: `dist`
+  - Base directory: `frontend`
 - [ ] Add environment variables:
   - `VITE_API_URL` = [Placeholder - will update after Render deployment]
-- [ ] Click "Deploy"
+  - `VITE_GOOGLE_MAPS_API_KEY` = [Your Google Maps API Key]
+- [ ] Click "Deploy site"
 - [ ] Wait for deployment to complete
-- [ ] Note Vercel URL
+- [ ] Note Netlify URL
 
 ## Update Environment Variables
 ### Update Render
 - [ ] Go to Render dashboard
 - [ ] Click on "manox-backend" service
 - [ ] Click "Environment" in sidebar
-- [ ] Update `FRONTEND_URL` to Vercel URL
+- [ ] Update `FRONTEND_URL` to Netlify URL
 - [ ] Click "Save Changes"
 - [ ] Wait for redeployment
 
-### Update Vercel
-- [ ] Go to Vercel dashboard
-- [ ] Click on MANOX project
-- [ ] Go to "Settings" → "Environment Variables"
+### Update Netlify (if needed)
+- [ ] Go to Netlify dashboard
+- [ ] Click on MANOX site
+- [ ] Go to "Site settings" → "Build & deploy" → "Environment"
 - [ ] Update `VITE_API_URL` to Render URL + `/api`
-- [ ] Click "Save"
 - [ ] Trigger redeployment
 
 ## Final Testing
 ### Frontend Testing
-- [ ] Visit Vercel URL
+- [ ] Visit Netlify URL
 - [ ] Test homepage loading
 - [ ] Browse products
 - [ ] Test shopping cart
@@ -142,7 +140,7 @@ This document tracks the deployment progress of the MANOX e-commerce platform to
 - [ ] Test dark/light theme toggle
 
 ### Admin Panel Testing
-- [ ] Visit Vercel URL + `/admin`
+- [ ] Visit Netlify URL + `/admin`
 - [ ] Log in with admin credentials
 - [ ] Test dashboard loading
 - [ ] Test product management

@@ -1,14 +1,15 @@
 # MANOX Deployment Progress Tracker
 
-Use this file to track your deployment progress to Vercel (frontend) and Render (backend).
+Use this file to track your deployment progress to Netlify (frontend) and Render (backend).
 
 ## Current Status
 
 - [x] Code committed and ready for deployment
-- [x] Vercel CLI installed
-- [x] GitHub repository created and code pushed
+- [x] Netlify configuration files created
+- [ ] GitHub repository created
+- [ ] Code pushed to GitHub
 - [ ] MongoDB Atlas configured
-- [ ] Frontend deployed to Vercel
+- [ ] Frontend deployed to Netlify
 - [ ] Backend deployed to Render
 - [ ] Environment variables updated
 - [ ] Services redeployed with correct URLs
@@ -24,26 +25,24 @@ Use this file to track your deployment progress to Vercel (frontend) and Render 
 - [ ] Configure network access (0.0.0.0/0)
 - [ ] Get connection string
 
-### 2. Deploy Frontend to Vercel
-Since we're having issues with the Vercel CLI, we'll deploy through the Vercel dashboard:
-- [ ] Go to https://vercel.com/dashboard
-- [ ] Click "New Project"
-- [ ] Import your GitHub repository (https://github.com/Azhar-max/manox)
+### 2. Deploy Frontend to Netlify
+- [ ] Go to https://app.netlify.com/
+- [ ] Click "Add new site" → "Import an existing project"
+- [ ] Connect GitHub repository
 - [ ] Configure project settings:
-  - Framework Preset: Vite
-  - Root Directory: frontend
-  - Build Command: npm run build
-  - Output Directory: dist
-  - Install Command: npm install
-- [ ] Add environment variables (we'll update these later):
+  - Build command: npm run build
+  - Publish directory: dist
+  - Base directory: frontend
+- [ ] Add environment variables:
   - VITE_API_URL = https://your-render-backend-url.onrender.com/api
+  - VITE_GOOGLE_MAPS_API_KEY = your-google-maps-api-key
 - [ ] Deploy the project
-- [ ] Note Vercel deployment URL
+- [ ] Note Netlify deployment URL
 
 ### 3. Deploy Backend to Render
 - [ ] Go to https://render.com
 - [ ] Create new Web Service
-- [ ] Connect GitHub repository (https://github.com/Azhar-max/manox)
+- [ ] Connect GitHub repository
 - [ ] Configure with these settings:
   - Name: manox-backend
   - Region: [Choose closest to users]
@@ -53,21 +52,21 @@ Since we're having issues with the Vercel CLI, we'll deploy through the Vercel d
   - Build Command: npm install
   - Start Command: npm start
   - Instance Type: Free
-- [ ] Add environment variables (we'll update these later):
+- [ ] Add environment variables:
   - MONGO_URI = [Your MongoDB connection string]
   - JWT_SECRET = [Strong secret key - at least 32 characters]
-  - FRONTEND_URL = [Placeholder - will update after Vercel deployment]
+  - FRONTEND_URL = [Placeholder - will update after Netlify deployment]
   - PORT = 10000
 - [ ] Click "Create Web Service"
 - [ ] Note Render URL
 
 ### 4. Update Environment Variables
-- [ ] Update Render's `FRONTEND_URL` to your Vercel URL
-- [ ] Update Vercel's `VITE_API_URL` to your Render URL + `/api`
+- [ ] Update Render's `FRONTEND_URL` to your Netlify URL
+- [ ] Update Netlify's `VITE_API_URL` to your Render URL + `/api` (if needed)
 - [ ] Redeploy both services
 
 ### 5. Final Testing
-- [ ] Visit Vercel URL
+- [ ] Visit Netlify URL
 - [ ] Test homepage
 - [ ] Browse products
 - [ ] Test shopping cart
@@ -79,7 +78,7 @@ Since we're having issues with the Vercel CLI, we'll deploy through the Vercel d
 
 ## Deployment URLs
 
-**Vercel Frontend URL**: ________________________________
+**Netlify Frontend URL**: ________________________________
 **Render Backend URL**: ________________________________
 
 ## Environment Variables
@@ -88,13 +87,14 @@ Since we're having issues with the Vercel CLI, we'll deploy through the Vercel d
 ```
 MONGO_URI=[Your MongoDB connection string]
 JWT_SECRET=[Your JWT secret]
-FRONTEND_URL=[Your Vercel URL]
+FRONTEND_URL=[Your Netlify URL]
 PORT=10000
 ```
 
-### Vercel Frontend
+### Netlify Frontend
 ```
 VITE_API_URL=[Your Render URL]/api
+VITE_GOOGLE_MAPS_API_KEY=[Your Google Maps API Key]
 ```
 
 ## Notes
