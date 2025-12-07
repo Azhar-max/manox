@@ -6,7 +6,7 @@ This guide will help you deploy the MANOX e-commerce platform frontend to Netlif
 
 1. A Netlify account (free tier available)
 2. A GitHub account with the MANOX repository
-3. The backend already deployed to Render (see DEPLOYMENT_VERCEL_RENDER.md for backend deployment)
+3. The backend already deployed to Render (see DEPLOYMENT_GUIDE.md for backend deployment)
 
 ## Deployment Steps
 

@@ -1,12 +1,12 @@
 # Final Deployment Steps for MANOX
 
 ## Overview
-This document provides a step-by-step guide to deploy your MANOX e-commerce platform to Vercel (frontend) and Render (backend) using your GitHub account.
+This document provides a step-by-step guide to deploy your MANOX e-commerce platform to Netlify (frontend) and Render (backend) using your GitHub account.
 
 ## Prerequisites
 - [x] GitHub account (already logged in)
 - [ ] MongoDB Atlas account
-- [ ] Vercel account (already logged in)
+- [ ] Netlify account (already logged in)
 - [ ] Render account (already logged in)
 
 ## Step 1: Set Up MongoDB Atlas
@@ -25,21 +25,19 @@ Or follow these manual steps:
 6. Configure network access to allow connections from anywhere (0.0.0.0/0)
 7. Get your connection string and save it for later
 
-## Step 2: Deploy Frontend to Vercel
+## Step 2: Deploy Frontend to Netlify
 
-1. Go to https://vercel.com/dashboard
-2. Click "New Project"
-3. Import your GitHub repository: https://github.com/Azhar-max/manox
-4. Configure project settings:
-   - Framework Preset: Vite
-   - Root Directory: frontend
-   - Build Command: npm run build
-   - Output Directory: dist
-   - Install Command: npm install
+1. Go to https://app.netlify.com
+2. Click "Add new site" → "Import an existing project"
+3. Connect your GitHub repository: https://github.com/Azhar-max/manox
+4. Configure site settings:
+   - Base directory: frontend
+   - Build command: npm run build
+   - Publish directory: dist
 5. Add environment variables (temporary - will update later):
    - VITE_API_URL = https://your-render-backend-url.onrender.com/api
-6. Click "Deploy"
-7. Note your Vercel deployment URL (e.g., https://manox-frontend.vercel.app)
+6. Click "Deploy site"
+7. Note your Netlify deployment URL (e.g., https://manox-frontend.netlify.app)
 
 ## Step 3: Deploy Backend to Render
 
@@ -58,7 +56,7 @@ Or follow these manual steps:
 5. Add environment variables (temporary - will update later):
    - MONGO_URI = [Your MongoDB connection string from Step 1]
    - JWT_SECRET = [Generate a strong secret key - at least 32 characters]
-   - FRONTEND_URL = [Placeholder - will update after Vercel deployment]
+   - FRONTEND_URL = [Placeholder - will update after Netlify deployment]
    - PORT = 10000
 6. Click "Create Web Service"
 7. Note your Render deployment URL (e.g., https://manox-backend.onrender.com)
@@ -69,14 +67,14 @@ Or follow these manual steps:
 1. Go to your Render dashboard
 2. Click on your "manox-backend" service
 3. Click "Environment" in the sidebar
-4. Update the FRONTEND_URL variable to your Vercel URL:
-   - FRONTEND_URL = https://your-vercel-url.vercel.app
+4. Update the FRONTEND_URL variable to your Netlify URL:
+   - FRONTEND_URL = https://your-netlify-url.netlify.app
 5. Click "Save Changes"
 
-### Update Vercel Environment Variables
-1. Go to your Vercel dashboard
-2. Click on your MANOX project
-3. Go to "Settings" → "Environment Variables"
+### Update Netlify Environment Variables
+1. Go to your Netlify dashboard
+2. Click on your MANOX site
+3. Go to "Site settings" → "Environment variables"
 4. Update the VITE_API_URL variable to your Render URL + /api:
    - VITE_API_URL = https://your-render-url.onrender.com/api
 5. Click "Save"
@@ -88,17 +86,17 @@ Or follow these manual steps:
 2. Click on your "manox-backend" service
 3. Click "Manual Deploy" → "Deploy latest commit"
 
-### Redeploy Frontend on Vercel
-1. Go to your Vercel dashboard
-2. Click on your MANOX project
-3. Click "Deployments"
-4. Click "Redeploy" on the latest deployment
+### Redeploy Frontend on Netlify
+1. Go to your Netlify dashboard
+2. Click on your MANOX site
+3. Go to "Deploys" tab
+4. Click "Trigger deploy" → "Deploy site"
 
 ## Step 6: Final Testing
 
 After both services have redeployed successfully:
 
-1. Visit your Vercel URL
+1. Visit your Netlify URL
 2. Test all functionality:
    - Homepage loading
    - Product browsing
@@ -118,7 +116,7 @@ After both services have redeployed successfully:
 
 1. **CORS errors**: Make sure FRONTEND_URL is correctly set in Render environment variables
 2. **API not responding**: Check that your Render backend is running and the MONGO_URI is correct
-3. **Frontend not building**: Check the build logs in Vercel dashboard
+3. **Frontend not building**: Check the build logs in Netlify dashboard
 4. **Database connection errors**: Verify your MongoDB connection string and network access
 
 ### Useful Commands for Local Testing
@@ -144,7 +142,7 @@ npm run dev
 ## Support
 
 If you encounter any issues during deployment:
-1. Check the deployment logs in both Vercel and Render dashboards
+1. Check the deployment logs in both Netlify and Render dashboards
 2. Verify all environment variables are correctly set
 3. Ensure your MongoDB Atlas cluster is active and accessible
 4. Confirm your GitHub repository contains all the latest code

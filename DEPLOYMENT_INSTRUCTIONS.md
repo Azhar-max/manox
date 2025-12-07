@@ -1,36 +1,34 @@
 # Deployment Instructions
 
-This document provides step-by-step instructions for deploying the MANOX application to Vercel (frontend) and Render (backend).
+This document provides step-by-step instructions for deploying the MANOX application to Netlify (frontend) and Render (backend).
 
 ## Prerequisites
 
 1. GitHub account
-2. Vercel account
+2. Netlify account
 3. Render account
 4. MongoDB Atlas account (or any MongoDB hosting service)
 
-## Frontend Deployment (Vercel)
+## Frontend Deployment (Netlify)
 
 ### 1. Prepare the Frontend Code
 
 1. Ensure all code is committed and pushed to your GitHub repository
-2. The `vercel.json` file is already included in the frontend directory
+2. The `netlify.toml` file is already included in the frontend directory
 
-### 2. Deploy to Vercel
+### 2. Deploy to Netlify
 
-1. Go to [vercel.com](https://vercel.com) and sign in
-2. Click "New Project"
-3. Import your GitHub repository
-4. Configure the project:
-   - Framework Preset: Vite
-   - Root Directory: frontend
-   - Build Command: `npm run build`
-   - Output Directory: dist
-   - Install Command: `npm install`
+1. Go to [netlify.com](https://netlify.com) and sign in
+2. Click "New site from Git"
+3. Connect your GitHub repository
+4. Configure the site:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+   - Base directory: `frontend`
 
-### 3. Set Environment Variables in Vercel
+### 3. Set Environment Variables in Netlify
 
-After deployment, go to your project settings and add these environment variables:
+After deployment, go to your site settings and add these environment variables:
 - `VITE_API_URL` - Set this to your backend URL (e.g., `https://your-backend-url.onrender.com/api`)
 
 ## Backend Deployment (Render)
@@ -57,7 +55,7 @@ After deployment, go to your project settings and add these environment variable
 After deployment, go to your service settings and add these environment variables:
 - `MONGO_URI` - Your MongoDB connection string
 - `JWT_SECRET` - A secure random string for JWT token signing
-- `FRONTEND_URL` - Your frontend URL (e.g., `https://your-frontend.vercel.app`)
+- `FRONTEND_URL` - Your frontend URL (e.g., `https://your-frontend.netlify.app`)
 - `PORT` - 10000 (already set in render.yaml)
 
 ## MongoDB Setup
@@ -83,9 +81,9 @@ mongodb+srv://<username>:<password>@<cluster-url>/manox?retryWrites=true&w=major
 ### 1. Update Frontend Environment Variables
 
 After your backend is deployed and you have the URL:
-1. Go to your Vercel project settings
+1. Go to your Netlify site settings
 2. Update the `VITE_API_URL` environment variable to point to your Render backend
-3. Redeploy the frontend
+3. Trigger a redeploy of the frontend
 
 ### 2. Seed the Database
 
@@ -114,11 +112,11 @@ After your backend is running:
 
 1. **CORS Errors**: Ensure `FRONTEND_URL` is correctly set in your backend environment variables
 2. **Database Connection Issues**: Verify your MongoDB connection string and IP whitelist
-3. **Environment Variables Not Loading**: Check that all environment variables are correctly set in both Vercel and Render
+3. **Environment Variables Not Loading**: Check that all environment variables are correctly set in both Netlify and Render
 
 ### Logs and Monitoring
 
-- Check Vercel logs in the Vercel dashboard
+- Check Netlify logs in the Netlify dashboard
 - Check Render logs in the Render dashboard
 - Monitor MongoDB Atlas for connection issues
 
@@ -127,13 +125,13 @@ After your backend is running:
 To update your deployed application:
 
 1. Push changes to your GitHub repository
-2. Vercel will automatically redeploy the frontend
+2. Netlify will automatically redeploy the frontend
 3. Render will automatically redeploy the backend
 4. For environment variable changes, you'll need to manually trigger a redeploy
 
 ## Cost Considerations
 
-- Vercel: Free tier available with some limitations
+- Netlify: Free tier available with some limitations
 - Render: Free tier available with some limitations
 - MongoDB Atlas: Free tier available with 512MB storage
 

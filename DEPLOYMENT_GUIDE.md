@@ -6,7 +6,7 @@ This guide will help you deploy the MANOX e-commerce website and admin panel to 
 
 1. Domain name (e.g., from Namecheap, GoDaddy, etc.)
 2. Hosting accounts:
-   - Frontend hosting (Vercel recommended)
+   - Frontend hosting (Netlify recommended)
    - Backend hosting (Render recommended)
 3. Google Maps API key (for map integration)
 4. MongoDB Atlas account (for database)
@@ -29,7 +29,7 @@ Create a `.env.production` file in the `backend` directory with the following va
 ```env
 MONGO_URI=mongodb+srv://username:password@cluster-url/manox?retryWrites=true&w=majority
 JWT_SECRET=your-super-secret-jwt-key-here
-FRONTEND_URL=https://your-frontend-domain.vercel.app
+FRONTEND_URL=https://your-frontend-domain.netlify.app
 PORT=10000
 ```
 
@@ -42,17 +42,17 @@ PORT=10000
 5. Restrict the API key to your domain for security
 6. Add the API key to your frontend environment variables
 
-## Step 3: Frontend Deployment (Vercel)
+## Step 3: Frontend Deployment (Netlify)
 
 1. Push your code to GitHub
-2. Sign up/in to [Vercel](https://vercel.com/)
-3. Create a new project and import your GitHub repository
+2. Sign up/in to [Netlify](https://netlify.com/)
+3. Create a new site and import your GitHub repository
 4. Set the build settings:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
-5. Add environment variables in the Vercel dashboard
-6. Deploy the project
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+   - Base directory: `frontend`
+5. Add environment variables in the Netlify dashboard
+6. Deploy the site
 
 ## Step 4: Backend Deployment (Render)
 
@@ -69,11 +69,11 @@ PORT=10000
 
 ## Step 5: Domain Configuration
 
-### Pointing Domain to Frontend (Vercel)
+### Pointing Domain to Frontend (Netlify)
 
 1. In your domain registrar's DNS settings, add:
-   - A CNAME record pointing `www` to `cname.vercel-dns.com`
-   - An A record pointing `@` to Vercel's IP addresses (check Vercel dashboard)
+   - A CNAME record pointing `www` to `your-site.netlify.app`
+   - An A record pointing `@` to Netlify's IP addresses (check Netlify dashboard)
 
 ### Pointing Domain to Backend (Render)
 

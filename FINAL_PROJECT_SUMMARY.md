@@ -64,7 +64,7 @@ src/
 - ✅ Build process successful
 
 ### Hosting Recommendations
-- **Frontend**: Vercel (recommended for React applications)
+- **Frontend**: Netlify (recommended for React applications)
 - **Backend**: Render (recommended for Node.js applications)
 - **Database**: MongoDB Atlas (for MongoDB hosting)
 - **Domain**: Any registrar (Namecheap, GoDaddy, etc.)

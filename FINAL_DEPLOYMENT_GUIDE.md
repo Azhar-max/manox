@@ -1,13 +1,13 @@
 # MANOX - Complete Deployment Guide
 
-This guide provides complete instructions for deploying the MANOX e-commerce application to production using Vercel for the frontend and Render for the backend.
+This guide provides complete instructions for deploying the MANOX e-commerce application to production using Netlify for the frontend and Render for the backend.
 
 ## Architecture Overview
 
 ```
 ┌─────────────────┐    API Calls    ┌──────────────────┐
 │   Frontend      ├─────────────────┤    Backend       │
-│   (Vercel)      │◀────────────────┤   (Render)       │
+│   (Netlify)     │◀────────────────┤   (Render)       │
 └─────────────────┘                 └──────────────────┘
          │                                   │
          ▼                                   ▼
@@ -22,7 +22,7 @@ This guide provides complete instructions for deploying the MANOX e-commerce app
 Before starting, you'll need:
 
 1. **GitHub Account** - To host your code
-2. **Vercel Account** - For frontend deployment
+2. **Netlify Account** - For frontend deployment
 3. **Render Account** - For backend deployment
 4. **MongoDB Atlas Account** - For database hosting
 5. **Node.js** (v18 or higher) - For local development/testing
@@ -32,7 +32,7 @@ Before starting, you'll need:
 ### 1.1 Verify All Configuration Files
 
 Ensure these files exist in your project:
-- `frontend/vercel.json` - Vercel configuration
+- `frontend/netlify.toml` - Netlify configuration
 - `backend/render.yaml` - Render configuration
 - `DEPLOYMENT_INSTRUCTIONS.md` - Detailed deployment guide
 
@@ -109,27 +109,25 @@ In the "Environment Variables" section, add:
 ```
 MONGO_URI=mongodb+srv://username:password@cluster-url/manox?retryWrites=true&w=majority
 JWT_SECRET=your-super-secret-jwt-key-here (generate a random secure string)
-FRONTEND_URL=https://your-frontend.vercel.app (will update after frontend deployment)
+FRONTEND_URL=https://your-frontend.netlify.app (will update after frontend deployment)
 PORT=10000
 ```
 
 ### 4.4 Deploy
 Click "Create Web Service" and wait for deployment to complete.
 
-## Step 5: Deploy Frontend to Vercel
+## Step 5: Deploy Frontend to Netlify
 
-### 5.1 Connect Vercel to GitHub
-1. Go to [vercel.com](https://vercel.com) and sign in
-2. Click "New Project"
-3. Import your GitHub repository
+### 5.1 Connect Netlify to GitHub
+1. Go to [netlify.com](https://netlify.com) and sign in
+2. Click "New site from Git"
+3. Connect your GitHub repository
 
-### 5.2 Configure Project
-- **Project Name**: manox-frontend
-- **Framework Preset**: Vite
-- **Root Directory**: frontend
-- **Build Command**: `npm run build`
-- **Output Directory**: dist
-- **Install Command**: `npm install`
+### 5.2 Configure Site
+- **Site Name**: manox-frontend
+- **Build command**: `npm run build`
+- **Publish directory**: `dist`
+- **Base directory**: `frontend`
 
 ### 5.3 Set Environment Variables
 Add this environment variable:
@@ -138,20 +136,20 @@ VITE_API_URL=https://your-backend-url.onrender.com/api (will update after backen
 ```
 
 ### 5.4 Deploy
-Click "Deploy" and wait for deployment to complete.
+Click "Deploy site" and wait for deployment to complete.
 
 ## Step 6: Update Environment Variables
 
 ### 6.1 Update Frontend VITE_API_URL
-1. Go to your Vercel project
-2. Go to "Settings" → "Environment Variables"
+1. Go to your Netlify site
+2. Go to "Site settings" → "Environment variables"
 3. Update `VITE_API_URL` with your actual Render backend URL
 4. Trigger a redeploy
 
 ### 6.2 Update Backend FRONTEND_URL
 1. Go to your Render service
 2. Go to "Environment" → "Environment Variables"
-3. Update `FRONTEND_URL` with your actual Vercel frontend URL
+3. Update `FRONTEND_URL` with your actual Netlify frontend URL
 4. Trigger a redeploy
 
 ## Step 7: Seed Database
@@ -210,7 +208,7 @@ db.users.updateOne(
 ## Troubleshooting Common Issues
 
 ### Issue: CORS Errors
-**Solution**: Ensure `FRONTEND_URL` in your backend environment variables exactly matches your Vercel frontend URL.
+**Solution**: Ensure `FRONTEND_URL` in your backend environment variables exactly matches your Netlify frontend URL.
 
 ### Issue: Database Connection Failed
 **Solution**: 
@@ -222,7 +220,7 @@ db.users.updateOne(
 **Solution**: 
 1. Check for typos in variable names
 2. Redeploy after updating environment variables
-3. Verify variables are set at the correct level (project vs. environment)
+3. Verify variables are set at the correct level (site vs. environment)
 
 ### Issue: Products Not Showing
 **Solution**: 
@@ -232,8 +230,8 @@ db.users.updateOne(
 
 ## Monitoring and Maintenance
 
-### Vercel Monitoring
-- Check deployment logs in the Vercel dashboard
+### Netlify Monitoring
+- Check deployment logs in the Netlify dashboard
 - Monitor performance metrics
 - Set up alerts for build failures
 
@@ -256,7 +254,7 @@ db.users.updateOne(
 4. Implement database indexing
 
 ### Security Best Practices
-1. Use HTTPS (automatically provided by Vercel and Render)
+1. Use HTTPS (automatically provided by Netlify and Render)
 2. Rotate JWT secrets periodically
 3. Implement rate limiting
 4. Use strong passwords for database users
@@ -265,7 +263,7 @@ db.users.updateOne(
 ## Cost Management
 
 ### Free Tier Limits
-- **Vercel**: 100GB bandwidth, 500 builds/month
+- **Netlify**: 100GB bandwidth, 500 builds/month
 - **Render**: 512MB RAM, 100GB bandwidth/month
 - **MongoDB Atlas**: 512MB storage, shared RAM
 
@@ -279,11 +277,11 @@ db.users.updateOne(
 
 ### For Code Changes
 1. Push changes to GitHub
-2. Vercel and Render will automatically redeploy
+2. Netlify and Render will automatically redeploy
 3. Monitor deployments for errors
 
 ### For Environment Variable Changes
-1. Update variables in Vercel/Render dashboards
+1. Update variables in Netlify/Render dashboards
 2. Manually trigger redeployment
 3. Test changes after deployment
 
@@ -294,7 +292,7 @@ db.users.updateOne(
 
 ## Support and Resources
 
-- **Vercel Documentation**: https://vercel.com/docs
+- **Netlify Documentation**: https://docs.netlify.com
 - **Render Documentation**: https://render.com/docs
 - **MongoDB Atlas Documentation**: https://docs.atlas.mongodb.com
 - **MANOX Documentation**: See project README files

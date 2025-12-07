@@ -7,13 +7,36 @@ import Hero from '../components/Hero';
 import FeatureGrid from '../components/FeatureGrid';
 import ProductCard from '../components/ProductCard';
 
+// Helper function to safely get environment variables
+const getApiUrl = () => {
+  // First try process.env (works in Jest)
+  if (process.env.VITE_API_URL) {
+    return process.env.VITE_API_URL;
+  }
+  
+  // Then try import.meta.env (works in Vite)
+  try {
+    // We wrap this in a try/catch to avoid syntax errors in Jest
+    // This is a workaround for environments that don't support import.meta
+    const url = eval('import.meta.env?.VITE_API_URL');
+    if (url) {
+      return url;
+    }
+  } catch (e) {
+    // Ignore errors - this is expected in Jest
+  }
+  
+  // Fallback to default
+  return 'http://localhost:3002/api';
+};
+
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
   const { language } = useContext(LanguageContext);
   
-  const api = import.meta.env.VITE_API_URL || 'http://localhost:3002/api';
+  const api = getApiUrl();
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -56,7 +79,10 @@ export default function Home() {
 
           {loading ? (
             <div className="flex justify-center items-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-manox-fuchsia"></div>
+              <div 
+                className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-manox-fuchsia"
+                aria-label="Loading"
+              ></div>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

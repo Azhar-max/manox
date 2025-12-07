@@ -17,6 +17,10 @@ module.exports = {
     '<rootDir>/src/**/*.{spec,test}.{js,jsx}'
   ],
   transform: {
-    '^.+\\.jsx?$': 'babel-jest'
-  }
+    '^.+\\.[jt]sx?$': 'babel-jest'
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(axios)/)'
+  ],
+  moduleFileExtensions: ['js', 'jsx', 'json', 'node']
 };

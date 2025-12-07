@@ -62,7 +62,8 @@ describe('Home Page', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    // Look for the loading spinner by its class name instead of role
+    expect(screen.getByLabelText('Loading')).toBeInTheDocument();
   });
 
   test('displays featured products after loading', async () => {
@@ -104,7 +105,7 @@ describe('Home Page', () => {
     });
 
     // Check that loading spinner is no longer visible
-    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Loading')).not.toBeInTheDocument();
   });
 
   test('handles API error gracefully', async () => {
@@ -123,7 +124,7 @@ describe('Home Page', () => {
     // Wait for error handling
     await waitFor(() => {
       // Loading spinner should disappear
-      expect(screen.queryByRole('status')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('Loading')).not.toBeInTheDocument();
     });
   });
 });

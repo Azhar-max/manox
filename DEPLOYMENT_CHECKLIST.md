@@ -1,6 +1,6 @@
 # MANOX Deployment Checklist
 
-This checklist ensures all necessary steps are completed for deploying the MANOX e-commerce platform to Vercel (frontend) and Render (backend).
+This checklist ensures all necessary steps are completed for deploying the MANOX e-commerce platform to Netlify (frontend) and Render (backend).
 
 ## Pre-Deployment Checklist
 
@@ -11,7 +11,7 @@ This checklist ensures all necessary steps are completed for deploying the MANOX
 - [ ] All environment configuration files created:
   - [ ] `frontend/.env.production`
   - [ ] `backend/.env.production`
-- [ ] Vercel configuration file exists (`frontend/vercel.json`)
+- [ ] Netlify configuration file exists (`frontend/netlify.toml`)
 - [ ] Render configuration file exists (`backend/render.yaml`)
 
 ### Environment Variables Preparation
@@ -22,7 +22,7 @@ This checklist ensures all necessary steps are completed for deploying the MANOX
 **Backend (.env.production):**
 - [ ] `MONGO_URI` - MongoDB connection string
 - [ ] `JWT_SECRET` - Secure JWT secret key
-- [ ] `FRONTEND_URL` - Vercel frontend URL
+- [ ] `FRONTEND_URL` - Netlify frontend URL
 - [ ] `PORT` - Set to 10000
 
 ## Deployment Steps
@@ -46,43 +46,41 @@ This checklist ensures all necessary steps are completed for deploying the MANOX
 - [ ] Add environment variables:
   - `MONGO_URI`: [Your MongoDB connection string]
   - `JWT_SECRET`: [Your secure secret key]
-  - `FRONTEND_URL`: https://your-vercel-frontend.vercel.app (placeholder)
+  - `FRONTEND_URL`: https://your-netlify-frontend.netlify.app (placeholder)
   - `PORT`: 10000
 - [ ] Deploy service
 - [ ] Note Render URL (e.g., https://manox-backend.onrender.com)
 
-### 3. Vercel Frontend Deployment
-- [ ] Go to Vercel dashboard
-- [ ] Create new project
+### 3. Netlify Frontend Deployment
+- [ ] Go to Netlify dashboard
+- [ ] Create new site
 - [ ] Import GitHub repository
-- [ ] Configure project:
-  - Framework Preset: Vite
-  - Root Directory: frontend
-  - Build Command: `npm run build`
-  - Output Directory: `dist`
-  - Install Command: `npm install`
+- [ ] Configure site:
+  - Build command: `npm run build`
+  - Publish directory: `dist`
+  - Base directory: `frontend`
 - [ ] Add environment variables:
   - `VITE_API_URL`: [Your Render backend URL + /api]
-- [ ] Deploy project
-- [ ] Note Vercel URL (e.g., https://manox-frontend.vercel.app)
+- [ ] Deploy site
+- [ ] Note Netlify URL (e.g., https://manox-frontend.netlify.app)
 
 ### 4. Update Environment Variables
 #### Render Backend Update
 - [ ] Go to Render service dashboard
-- [ ] Update `FRONTEND_URL` to actual Vercel frontend URL
+- [ ] Update `FRONTEND_URL` to actual Netlify frontend URL
 - [ ] Save changes and wait for redeployment
 
-#### Vercel Frontend Update (if needed)
-- [ ] Go to Vercel project settings
+#### Netlify Frontend Update (if needed)
+- [ ] Go to Netlify site settings
 - [ ] Verify `VITE_API_URL` is correct
-- [ ] Redeploy if changes were made
+- [ ] Trigger redeploy if changes were made
 
 ### 5. Domain Configuration (Optional)
 #### Frontend Domain
-- [ ] Add domain to Vercel project
+- [ ] Add custom domain to Netlify site
 - [ ] Configure DNS records with domain registrar:
-  - CNAME record for `www` pointing to `cname.vercel-dns.com`
-  - A records for `@` pointing to Vercel IP addresses
+  - CNAME record for `www` pointing to `your-site.netlify.app`
+  - A records for apex domain pointing to Netlify IP addresses
 
 #### Backend Domain (Optional)
 - [ ] Add custom domain to Render service
@@ -128,7 +126,7 @@ This checklist ensures all necessary steps are completed for deploying the MANOX
 - [ ] Google Cloud project created
 - [ ] Maps JavaScript API enabled
 - [ ] API key generated and restricted
-- [ ] `VITE_GOOGLE_MAPS_API_KEY` added to Vercel environment variables
+- [ ] `VITE_GOOGLE_MAPS_API_KEY` added to Netlify environment variables
 - [ ] Frontend redeployed
 
 ### Email Notifications (Future Enhancement)
