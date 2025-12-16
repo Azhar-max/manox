@@ -3,7 +3,7 @@
  */
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3001/api';
+const BASE_URL = 'http://localhost:3002/api';
 
 async function runTests() {
   console.log('🧪 Starting API tests...\n');
@@ -35,6 +35,9 @@ async function runTests() {
       console.log(`  Product: ${product.data.title}`);
       console.log(`  Price (EUR): €${product.data.price}`);
       console.log(`  Images: ${product.data.images ? product.data.images.length : 0}`);
+      if (product.data.images) {
+        console.log(`  Image URLs: ${product.data.images.join(', ')}`);
+      }
       console.log();
     }
 
@@ -44,14 +47,29 @@ async function runTests() {
     console.log(`  Jewelry products: ${categoryFilter.data.items.length}`);
     console.log();
 
-    // Test 5: Featured products
-    console.log('✓ Test 5: Get Featured Products');
+    // Test 5: Get Gajray products specifically
+    console.log('✓ Test 5: Get Gajray Products');
+    const gajrayProducts = await axios.get(`${BASE_URL}/products?category=floral&subcategory=gajray`);
+    console.log(`  Gajray products: ${gajrayProducts.data.items.length}`);
+    if (gajrayProducts.data.items.length > 0) {
+      gajrayProducts.data.items.forEach((product, index) => {
+        console.log(`    ${index + 1}. ${product.title} - €${product.price}`);
+        console.log(`       Images: ${product.images ? product.images.length : 0}`);
+        if (product.images) {
+          console.log(`       Image URLs: ${product.images.join(', ')}`);
+        }
+      });
+    }
+    console.log();
+
+    // Test 6: Featured products
+    console.log('✓ Test 6: Get Featured Products');
     const featured = await axios.get(`${BASE_URL}/products?featured=true&limit=4`);
     console.log(`  Featured products: ${featured.data.items.length}`);
     console.log();
 
-    // Test 6: Create order (mock)
-    console.log('✓ Test 6: Create Order (Mock)');
+    // Test 7: Create order (mock)
+    console.log('✓ Test 7: Create Order (Mock)');
     const orderPayload = {
       items: [
         { productId: products.data.items[0]._id, title: products.data.items[0].title, price: products.data.items[0].price, qty: 1 }

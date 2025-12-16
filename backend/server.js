@@ -1,14 +1,19 @@
-/**
- * Minimal modern backend for MANOX
- */
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
-app.use(cors({ origin: process.env.FRONTEND_URL || '*' }));
+
+// Configure CORS with proper origin handling
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+app.use(cors({ 
+  origin: frontendUrl,
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
+
 app.use(express.json({ limit: '5mb' }));
 
 // Serve static files from the frontend public directory
@@ -51,25 +56,48 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: err.message || 'Server Error' });
 });
 
-const PORT = process.env.PORT || 3002;
+// Use PORT 5000 as default to match requirements
+const PORT = process.env.PORT || 5000;
 const MONGO = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/manox';
+
 async function start(){
   try {
     console.log('[DEBUG] Connecting to MongoDB at', MONGO);
-    await mongoose.connect(MONGO, { });
+    // Add proper connection options for MongoDB
+    await mongoose.connect(MONGO, { 
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of default 30s
+      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    });
     console.log('[DEBUG] MongoDB connected');
     
-    const server = app.listen(PORT, () => {
-      console.log(`[SUCCESS] Server running on http://localhost:${PORT}`);
+    const server = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`[SUCCESS] Server running on http://0.0.0.0:${PORT}`);
+      console.log(`[INFO] NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`[INFO] FRONTEND_URL: ${frontendUrl}`);
+      console.log(`[INFO] MONGO_URI: ${MONGO.substring(0, 30)}...`);
     });
     
+    // Handle server errors
     server.on('error', (err) => {
       console.error('[ERROR] Server error:', err);
       process.exit(1);
     });
+    
+    // Graceful shutdown
+    process.on('SIGINT', async () => {
+      console.log('[INFO] Shutting down gracefully...');
+      await mongoose.connection.close();
+      server.close(() => {
+        console.log('[INFO] Server closed');
+        process.exit(0);
+      });
+    });
   } catch(err) {
-    console.error('[FATAL]', err);
+    console.error('[FATAL] MongoDB connection error:', err);
     process.exit(1);
   }
 }
+
 start();
